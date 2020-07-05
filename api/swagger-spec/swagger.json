@@ -1,0 +1,110 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "Documentation of Prober User API",
+    "title": "Prober API",
+    "version": "1.0.0"
+  },
+  "host": "localhost",
+  "basePath": "/",
+  "paths": {
+    "/metrics": {
+      "get": {
+        "description": "Metrics handler",
+        "tags": [
+          "Metrics"
+        ],
+        "operationId": "metricsHandler",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/response"
+          }
+        }
+      }
+    },
+    "/probe": {
+      "post": {
+        "description": "Probe handler",
+        "tags": [
+          "Probe"
+        ],
+        "operationId": "probeHandler",
+        "parameters": [
+          {
+            "x-go-name": "Params",
+            "name": "params",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/probeParams"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/response"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Response": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/StatusCode"
+        },
+        "message": {
+          "type": "string",
+          "x-go-name": "Message"
+        },
+        "response": {
+          "type": "object",
+          "x-go-name": "Response"
+        }
+      },
+      "x-go-package": "github.com/alandtsang/prober/internal/apis/rest/resp"
+    },
+    "StatusCode": {
+      "type": "integer",
+      "format": "int64",
+      "x-go-package": "github.com/alandtsang/prober/internal/errs"
+    },
+    "probeParams": {
+      "type": "object",
+      "properties": {
+        "module": {
+          "type": "string",
+          "x-go-name": "Module"
+        },
+        "target": {
+          "type": "string",
+          "x-go-name": "Target"
+        }
+      },
+      "x-go-package": "github.com/alandtsang/prober/internal/prober"
+    }
+  },
+  "responses": {
+    "response": {
+      "schema": {
+        "$ref": "#/definitions/Response"
+      }
+    }
+  },
+  "securityDefinitions": {
+    "basic": {
+      "type": "basic"
+    }
+  }
+}

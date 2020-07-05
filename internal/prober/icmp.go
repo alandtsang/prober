@@ -1,0 +1,5 @@
+package prober
+
+func ProbeICMP() {
+
+}
